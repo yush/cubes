@@ -1,6 +1,7 @@
 const DRAW_SIZE = 50;
 let grid: Grid;
 let pointer: Cursor;
+let store: GridStore;
 
 const EMPTY_FACE = 0;
 const FULL_FACE_1 = 1;
@@ -12,6 +13,8 @@ const DUAL_FACE_3 = 5;
 function setup() {
   grid = new Grid();
   pointer = new Cursor();
+  store = new GridStore();
+  store.import();
   createCanvas(DRAW_SIZE * SIZE, DRAW_SIZE * SIZE);
   background(128);
   fill(102);
@@ -120,6 +123,12 @@ function keyTyped() {
     grid.setColor(pointer.row, pointer.col, DUAL_FACE_3);
   } else if (key === "r") {
     grid.rotateColor(pointer.row, pointer.col);
+  } else if (key === "o") {
+    saveCanvas("test", "jpg");
+  } else if (key === "j") {
+    store.addGrid(grid);
+    store.export();
+    grid = new Grid();
   }
 }
 
